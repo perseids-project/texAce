@@ -97,16 +97,26 @@
 		// Ace editor change event.
 		// Work around the limitations of the Ace callback system.
 		//------------------------------------------------------------
-		self.aceEditor.on( "change", function() { self.change( self.aceEditor.getValue() ) } );
+		self.aceEditor.on( "change", function() { self.update( self.aceEditor.getValue() ) } );
 	}
 	
+	/**
+	 * Resize the Ace text-editor
+	 */
 	texAce.prototype.resize = function() {
 		var last = $( "#aceEditor .ace_gutter-cell:last" );
-		var height = last.position().top + last.outerHeight();
+		var count = this.aceEditor.getLastVisibleRow()+1;
+		var outerHeight = last.outerHeight();
+		var height =  count*outerHeight;
 		$( "#aceMask" ).height( height );
 	}
 	
-	texAce.prototype.change = function( _text ) {
+	/**
+	 * Holds default options, adds user defined options, and initializes the plugin
+	 *
+	 * @param { string } _text The text to copy to the source textarea
+	 */
+	texAce.prototype.update = function( _text ) {
 		$( this.elem ).val( _text );
 		this.resize();
 	}

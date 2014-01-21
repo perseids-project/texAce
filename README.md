@@ -1,5 +1,5 @@
 # texAce
-texAce is a jQuery plug-in to turn a generic HTML textarea 
+texAce is a jQuery plug-in to turn a HTML textarea 
 into a responsive Ace text-editor complete with syntax highlighting.
 
 texAce will resize automatically to display all content.
