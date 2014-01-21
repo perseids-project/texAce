@@ -1,0 +1,15 @@
+#aceMask {
+  height: 800px;
+  overflow-y: hidden;
+}
+#aceWrapper {
+  position: relative;
+  height: 10000px;
+}
+#aceEditor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<!-- Load CSS -->
+		<link href="../src/css/texAce.css" rel="stylesheet" type="text/css" />
+		<!-- End Load CSS -->
+		<title>texAce</title>
+	<head>
+	<body>
+		<textarea id="text">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x000A;&lt;?oxygen RNGSchema=&quot;http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng&quot; type=&quot;xml&quot; ?&gt;&#x000A;&lt;TEI xmlns=&quot;http://www.tei-c.org/ns/1.0&quot; xml:lang=&quot;en&quot;&gt;&#x000A;  &lt;teiHeader&gt;&#x000A;    &lt;fileDesc&gt;&#x000A;      &lt;titleStmt&gt;&#x000A;        &lt;title&gt;urn:cts:ig:ii_2.12974.TempTexts-ed-2013-2&lt;/title&gt;&#x000A;      &lt;/titleStmt&gt;&#x000A;      &lt;publicationStmt&gt;&#x000A;        &lt;authority&gt;Perseus Project&lt;/authority&gt;&#x000A;        &lt;idno type=&quot;urn:cts&quot;&gt;urn_cts_ig_ii_2.12974.TempTexts-ed-2013-2&lt;/idno&gt;&#x000A;        &lt;availability&gt;&#x000A;          &lt;p&gt;This work is licensed under a&#x000A;          &lt;ref type=&quot;license&quot; target=&quot;http://creativecommons.org/licenses/by-sa/3.0/&quot;&gt;Creative &#x000A;          Commons Attribution-ShareAlike 3.0 License&lt;/ref&gt;.&lt;/p&gt;&#x000A;        &lt;/availability&gt;&#x000A;      &lt;/publicationStmt&gt;&#x000A;      &lt;sourceDesc&gt;&#x000A;        &lt;p/&gt;&#x000A;      &lt;/sourceDesc&gt;&#x000A;    &lt;/fileDesc&gt;&#x000A;    &lt;profileDesc&gt;&#x000A;      &lt;langUsage&gt;&#x000A;        &lt;language ident=&quot;en&quot;&gt;English&lt;/language&gt;&#x000A;        &lt;language ident=&quot;grc&quot;&gt;Ancient Greek&lt;/language&gt;&#x000A;        &lt;language ident=&quot;la&quot;&gt;Latin&lt;/language&gt;&#x000A;        &lt;language ident=&quot;fr&quot;&gt;French&lt;/language&gt;&#x000A;        &lt;language ident=&quot;de&quot;&gt;German&lt;/language&gt;&#x000A;        &lt;language ident=&quot;grc-Latn&quot;&gt;Ancient Greek in Latin script&lt;/language&gt;&#x000A;        &lt;language ident=&quot;la-Grek&quot;&gt;Latin in Greek script&lt;/language&gt;&#x000A;        &lt;language ident=&quot;cop&quot;&gt;Coptic&lt;/language&gt;&#x000A;      &lt;/langUsage&gt;&#x000A;    &lt;/profileDesc&gt;&#x000A;    &lt;revisionDesc&gt;&#x000A;      &lt;change when=&quot;2013-12-11T18:43:14+00:00&quot; who=&quot;SoSOL&quot;&gt;Automated creation from template&lt;/change&gt;&#x000A;    &lt;/revisionDesc&gt;&#x000A;  &lt;/teiHeader&gt;&#x000A;  &lt;text&gt;&#x000A;    &lt;body&gt;&#x000A;      &lt;div xml:lang=&quot;grc&quot; type=&quot;edition&quot; xml:space=&quot;preserve&quot;&gt;&#x000A;      	&lt;lg met=&quot;&quot;&gt;&#x000A;			&lt;l n=&quot;1&quot;&gt;&lt;lb n=&quot;1&quot;/&gt;&lt;/l&gt;&#x000A;		&lt;/lg&gt;&#x000A;      &lt;/div&gt;&#x000A;    &lt;/body&gt;&#x000A;  &lt;/text&gt;&#x000A;&lt;/TEI&gt;</textarea>
+	</body>
+	<!-- Load Javascript -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../third_party/ace-builds/src-noconflict/ace.js"></script>
+	<script type="text/javascript" src="../src/js/texAce.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function() {
+			$('#text').texAce({
+				lang: 'xml'
+			});
+		});
+	</script>
+<html>
