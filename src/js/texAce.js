@@ -59,7 +59,8 @@
 		//------------------------------------------------------------
 		self.options = $.extend({
 			theme: 'tomorrow',
-			lang: 'javascript'
+			lang: 'javascript',
+			theme_selector: false
 		}, _options );
 		
 		//------------------------------------------------------------
@@ -68,6 +69,23 @@
 		self.events = {
 			change: 'TEXACE-CHANGE'
 		}
+		
+		//------------------------------------------------------------
+		// Themes
+		//------------------------------------------------------------
+		self.themes = [
+			'ambiance', 'chaos', 'chrome', 
+			'clouds', 'clouds_midnight', 'cobalt',
+			'crimson_editor', 'dawn', 'dreamweaver',
+			'eclipse', 'github', 'idle_fingers',
+			'katzenmilch', 'kr', 'kuroir', 
+			'merbivore', 'merbivore_soft', 'mono_industrial',
+			'monokai', 'pastel_on_dark', 'solarized_dark',
+			'solarized_light', 'terminal', 'textmate',
+			'tomorrow', 'tomorrow_night', 'tomorrow_night_blue',
+			'tomorrow_night_bright', 'tomorrow_night_eighties', 'twilight',
+			'vibrant_ink', 'xcode'
+		];
 		
 		//------------------------------------------------------------
 		// Check cookie for persistent options
@@ -93,7 +111,11 @@
 		self.aceEditor.getSession().setUseWrapMode( true );
 		self.theme();
 		self.lang();
-		self.resize();
+		
+		//------------------------------------------------------------
+		//  Build the theme selector
+		//------------------------------------------------------------
+		self.buildSelector();
 		
 		//------------------------------------------------------------
 		// Window resize listener.
@@ -111,6 +133,48 @@
 		self.aceEditor.on( "copy", function() { self.update( self.aceEditor.getValue() ) } );
 		self.aceEditor.on( "focus", function() { self.update( self.aceEditor.getValue() ) } );
 		self.aceEditor.on( "paste", function() { self.update( self.aceEditor.getValue() ) } );
+		
+		//------------------------------------------------------------
+		// Initial sizing.
+		//------------------------------------------------------------
+		self.resize();
+	}
+
+	/**
+	 * Builds a theme selector
+	 */	
+	texAce.prototype.buildSelector = function() {
+		var self = this;
+		
+		//------------------------------------------------------------
+		// Build the theme selector
+		//------------------------------------------------------------
+		var selector = '';
+		if ( self.options['theme_selector'] ) {
+			selector += '<select id="themeSelector">';
+			for ( var i=0, ii=self.themes.length; i<ii; i++ ) {
+				mark = '';
+				//------------------------------------------------------------
+				// Mark the current theme
+				//------------------------------------------------------------
+				if ( self.themes[i] == self.options['theme'] ) {
+					mark = 'selected';
+				}
+				selector += '<option value="'+ self.themes[i] +'" '+mark+'>' + self.themes[i] +'</option>';
+			}
+			selector += '</select>';
+		}
+		$( self.elem ).append( selector );
+		
+		//------------------------------------------------------------
+		// Theme selection event
+		//------------------------------------------------------------
+		$( "#themeSelector", self.elem ).change( function( _e ) {
+			$( 'option:selected', this ).each( function() {
+				var theme = $( this ).val();
+				self.theme( theme );
+			});
+		});
 	}
 	
 	/**
