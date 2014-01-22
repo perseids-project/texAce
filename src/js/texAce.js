@@ -143,6 +143,11 @@
 		self.aceEditor.on( "paste", function() { self.update( self.aceEditor.getValue() ) } );
 		
 		//------------------------------------------------------------
+		// Changes are a two-way street.
+		//------------------------------------------------------------
+		self.updateReverse();
+		
+		//------------------------------------------------------------
 		// Initial sizing.
 		//------------------------------------------------------------
 		self.resize();
@@ -266,6 +271,23 @@
 		setTimeout( function(){
 			self.resize();
 		}, 50 );
+	}
+
+	/**
+	 * Update in reverse... textarea to Ace Editor
+	 */	
+	texAce.prototype.updateReverse = function() {
+		var self = this;
+		var text = self.textarea.val();
+		setInterval ( function() {
+			var check = self.textarea.val();
+			var editorCheck = self.aceEditor.getValue();
+			if ( text != check && check != editorCheck ) {
+				text = check;
+				self.aceEditor.getSession().setValue( text );
+				self.resize();
+			}
+		}, 500 );
 	}
 	
 	//----------------
