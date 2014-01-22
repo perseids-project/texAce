@@ -116,7 +116,6 @@
 		// Startup and configure ace editor.
 		//------------------------------------------------------------
 		self.aceEditor = ace.edit( "aceEditor" );
-		self.aceEditor.getSession().setMode( "ace/mode/" + self.options['lang'] );
 		self.aceEditor.getSession().setUseWrapMode( true );
 		self.theme();
 		self.lang();
