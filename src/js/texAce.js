@@ -72,12 +72,13 @@
 		//------------------------------------------------------------
 		// Copy content into a div
 		//------------------------------------------------------------
-		var editor = $( self.elem );
-		var xml = editor.val();
-		editor.hide();
-		editor.after( '<div id="aceMask"><div id="aceWrapper"><div id="aceEditor"></div></div></div>' );
-		var aceDiv = $( '#aceEditor' );
-		aceDiv.text( xml );
+		$( self.elem ).wrap( '<div class="texAce"></div>' );
+		self.elem = $( self.elem ).parent();
+		self.textarea = $( 'textarea', self.elem );
+		var xml = self.textarea.val();
+		self.textarea.hide();
+		$( self.elem ).append( '<div id="aceMask"><div id="aceWrapper"><div id="aceEditor"></div></div></div>' );
+		$( '#aceEditor', self.elem ).text( xml );
 	
 		//------------------------------------------------------------
 		// Startup and configure ace editor.
@@ -104,11 +105,11 @@
 	 * Resize the Ace text-editor
 	 */
 	texAce.prototype.resize = function() {
-		var last = $( "#aceEditor .ace_gutter-cell:last" );
+		var last = $( "#aceEditor .ace_gutter-cell:last", this.elem );
 		var count = this.aceEditor.getLastVisibleRow()+1;
 		var outerHeight = last.outerHeight();
 		var height =  count*outerHeight;
-		$( "#aceMask" ).height( height );
+		$( "#aceMask", this.elem ).height( height );
 	}
 	
 	/**

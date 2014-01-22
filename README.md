@@ -17,6 +17,10 @@ so texAce should be "plug-and-play".
 	cd texAce
 	git submodule update --init
 
+# Limitations
+Only one instance of texAce can be used per page.
+This may change in the future when I better understand Ace's event system.
+
 # Use
 Load the stylesheet.
 
