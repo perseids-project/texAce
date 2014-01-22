@@ -258,7 +258,7 @@
 	 */
 	texAce.prototype.update = function( _text ) {
 		var self = this;
-		$( self.elem ).val( _text );
+		$( self.textarea ).val( _text );
 		//------------------------------------------------------------
 		// Ace's events sometimes get triggered before the editor's
 		// appearance changes. This delay hopefully is sufficient
