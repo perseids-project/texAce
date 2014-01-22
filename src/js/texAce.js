@@ -55,7 +55,7 @@
 		$( self.elem ).addClass('texAce')
 		
 		//------------------------------------------------------------
-		//User options 
+		// User options 
 		//------------------------------------------------------------
 		self.options = $.extend({
 			theme: 'tomorrow',
@@ -68,6 +68,11 @@
 		self.events = {
 			change: 'TEXACE-CHANGE'
 		}
+		
+		//------------------------------------------------------------
+		// Check cookie for persistent options
+		//------------------------------------------------------------
+		self.cookieCheck( _options );
 		
 		//------------------------------------------------------------
 		// Copy content into a div
@@ -84,32 +89,93 @@
 		// Startup and configure ace editor.
 		//------------------------------------------------------------
 		self.aceEditor = ace.edit( "aceEditor" );
-		self.aceEditor.setTheme( "ace/theme/" + self.options['theme'] );
 		self.aceEditor.getSession().setMode( "ace/mode/" + self.options['lang'] );
 		self.aceEditor.getSession().setUseWrapMode( true );
+		self.theme();
+		self.lang();
 		self.resize();
 		
 		//------------------------------------------------------------
 		// Window resize listener.
 		//------------------------------------------------------------
-		$( window ).on( 'resize', self.resize );
+		$( window ).on( 'resize', function() { self.resize() } );
 		
 		//------------------------------------------------------------
-		// Ace editor change event.
-		// Work around the limitations of the Ace callback system.
+		// Ace editor events requiring an update.
+		// Working around the limitations of the Ace callback system.
 		//------------------------------------------------------------
+		self.aceEditor.on( "blur", function() { self.update( self.aceEditor.getValue() ) } );
 		self.aceEditor.on( "change", function() { self.update( self.aceEditor.getValue() ) } );
+		self.aceEditor.on( "changeSelectionStyle", function() { self.update( self.aceEditor.getValue() ) } );
+		self.aceEditor.on( "changeSession", function() { self.update( self.aceEditor.getValue() ) } );
+		self.aceEditor.on( "copy", function() { self.update( self.aceEditor.getValue() ) } );
+		self.aceEditor.on( "focus", function() { self.update( self.aceEditor.getValue() ) } );
+		self.aceEditor.on( "paste", function() { self.update( self.aceEditor.getValue() ) } );
 	}
 	
 	/**
-	 * Resize the Ace text-editor
+	 * Resize the Ace editor
+	 * Not sure how expensive timewise this is.
 	 */
 	texAce.prototype.resize = function() {
-		var last = $( "#aceEditor .ace_gutter-cell:last", this.elem );
-		var count = this.aceEditor.getLastVisibleRow()+1;
-		var outerHeight = last.outerHeight();
-		var height =  count*outerHeight;
+		var height = 0;
+		$( "#aceEditor .ace_gutter-cell" ).each( function(){
+			height += $(this).outerHeight();
+		});
 		$( "#aceMask", this.elem ).height( height );
+	}
+	
+	/**
+	 * Checks which default options aren't being overwritten.
+	 * Those options could be stored as cookies.
+	 * This checks for the existence of those cookie values.
+	 * If they exist then they'll overwrite the defaults.
+	 */		
+	texAce.prototype.cookieCheck = function( _options ) {
+		var self = this;
+		var check = [];
+		//------------------------------------------------------------
+		//  Find which default options aren't
+		//------------------------------------------------------------
+		for ( var opt in self.options ) {
+			if ( opt in _options ) {
+				continue;
+			}
+			check.push( opt );
+		}
+		for ( var i=0, ii=check.length; i<ii; i++ ) {
+			var cookieVal = $.cookie( 'texAce:'+check[i] );
+			if ( cookieVal != undefined ) {
+				self.options[ check ] = cookieVal;
+			}
+		}
+	}
+	
+	/**
+	 * Set a cookie for persistent texAce options
+	 */	
+	texAce.prototype.cookieSet = function( _key, _val ) {
+		$.cookie( _key, _val );
+	}
+	
+	/**
+	 * Change the Ace editor language
+	 */
+	texAce.prototype.lang = function( _lang ) {
+		var self = this;
+		_lang = ( _lang == undefined ) ? self.options['lang'] : _lang;
+		self.aceEditor.getSession().setMode( "ace/mode/" + _lang );
+		
+	}
+	
+	/**
+	 * Change the Ace editor theme
+	 */
+	texAce.prototype.theme = function( _theme ) {
+		var self = this;
+		_theme = ( _theme == undefined ) ? self.options['theme'] : _theme;
+		self.aceEditor.setTheme( "ace/theme/" + _theme );
+		self.cookieSet( 'texAce:theme', _theme );
 	}
 	
 	/**
@@ -118,8 +184,16 @@
 	 * @param { string } _text The text to copy to the source textarea
 	 */
 	texAce.prototype.update = function( _text ) {
-		$( this.elem ).val( _text );
-		this.resize();
+		var self = this;
+		$( self.elem ).val( _text );
+		//------------------------------------------------------------
+		// Ace's events sometimes get triggered before the editor's
+		// appearance changes. This delay hopefully is sufficient
+		// to fix this problem without the user noticing.
+		//------------------------------------------------------------
+		setTimeout( function(){
+			self.resize();
+		}, 50 );
 	}
 	
 	//----------------

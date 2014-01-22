@@ -1,3 +1,6 @@
 [submodule "third_party/ace-builds"]
 	path = third_party/ace-builds
 	url = http://github.com/ajaxorg/ace-builds
+[submodule "third_party/jquery-cookie"]
+	path = third_party/jquery-cookie
+	url = https://github.com/carhartl/jquery-cookie

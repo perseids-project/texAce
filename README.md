@@ -11,6 +11,7 @@ so texAce should be "plug-and-play".
 # Requirements
 * jQuery
 * Ace ( http://ace.c9.io/#nav=about )
+* jquery-cookie ( https://github.com/carhartl/jquery-cookie )
 
 # Installation
 	git clone http://github.com/caesarfeta/texAce texAce
@@ -29,6 +30,7 @@ Load the stylesheet.
 Load the javascript.
 
 	<script type="text/javascript" src="texAce/third_party/ace-builds/src-noconflict/ace.js"></script>
+	<script type="text/javascript" src="texAce/third_party/jquery-cookie/jquery.cookie.js"></script>
 	<script type="text/javascript" src="texAce/src/js/texAce.js"></script>
 
 Initialize texAce on the textarea element passing along the lang option, so the syntax highlighter knows what language you want the default is javascript.
@@ -38,3 +40,41 @@ Initialize texAce on the textarea element passing along the lang option, so the 
 				lang: 'xml'
 			});
 	</script>	
+
+# Options
+Options can be set in the constructor or can be set using methods after initialization.
+
+* theme:
+	* ambiance
+	* chaos
+	* chrome
+	* clouds
+	* clouds_midnight
+	* cobalt
+	* crimson_editor
+	* dawn
+	* dreamweaver
+	* eclipse
+	* github
+	* idle_fingers
+	* katzenmilch
+	* kr
+	* kuroir
+	* merbivore
+	* merbivore_soft
+	* mono_industrial
+	* monokai
+	* pastel_on_dark
+	* solarized_dark
+	* solarized_light
+	* terminal
+	* textmate
+	* tomorrow
+	* tomorrow_night
+	* tomorrow_night_blue
+	* tomorrow_night_bright
+	* tomorrow_night_eighties
+	* twilight
+	* vibrant_ink
+	* xcode
+	
