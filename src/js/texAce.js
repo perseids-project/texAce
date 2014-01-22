@@ -93,10 +93,19 @@
 		self.cookieCheck( _options );
 		
 		//------------------------------------------------------------
-		// Copy content into a div
+		// Build the DOM
 		//------------------------------------------------------------
 		$( self.elem ).wrap( '<div class="texAce"></div>' );
 		self.elem = $( self.elem ).parent();
+		
+		//------------------------------------------------------------
+		// Mark your territory
+		//------------------------------------------------------------
+		self.elem.addClass('texAce');
+		
+		//------------------------------------------------------------
+		// Get textarea XML
+		//------------------------------------------------------------
 		self.textarea = $( 'textarea', self.elem );
 		var xml = self.textarea.val();
 		self.textarea.hide();
@@ -162,9 +171,9 @@
 				}
 				selector += '<option value="'+ self.themes[i] +'" '+mark+'>' + self.themes[i] +'</option>';
 			}
-			selector += '</select>';
+			selector += '</select><div style="clear:both"></div>';
 		}
-		$( self.elem ).append( selector );
+		$( self.elem ).prepend( selector );
 		
 		//------------------------------------------------------------
 		// Theme selection event
