@@ -4,3 +4,6 @@
 [submodule "third_party/jquery-cookie"]
 	path = third_party/jquery-cookie
 	url = https://github.com/carhartl/jquery-cookie
+[submodule "third_party/sqUIsh"]
+	path = third_party/sqUIsh
+	url = http://github.com/caesarfeta/sqUIsh
