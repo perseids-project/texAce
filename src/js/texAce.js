@@ -232,7 +232,7 @@
 	 * Set a cookie for persistent texAce options
 	 */	
 	texAce.prototype.cookieSet = function( _key, _val ) {
-		$.cookie( _key, _val );
+		$.cookie( _key, _val, { path: '/' } );
 	}
 	
 	/**
