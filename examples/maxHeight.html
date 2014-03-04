@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<!-- Load CSS -->
+		<link href="../src/css/texAce.css" rel="stylesheet" type="text/css" />
+		<!-- End Load CSS -->
+		<title>texAce</title>
+	<head>
+	<body>
+		<textarea id="text">&lt;node&gt;node&lt;/node&gt;
+		</textarea>
+		<a href="#" id="more_text">More text, please.</a>
+	</body>
+	<!-- Load Javascript -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../third_party/ace-builds/src-noconflict/ace.js"></script>
+	<script type="text/javascript" src="../third_party/jquery-cookie/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../src/js/texAce.js"></script>
+	<script type="text/javascript">
+		String.prototype.repeat = function( _n ) {
+			return new Array( _n + 1 ).join( this );
+		}
+		var texAce = null;
+		$(document).ready( function() {
+			texAce = $('#text').texAce({
+				lang: 'xml',
+				theme_selector: true
+			}).data('#text');
+			$( '#more_text' ).click( function(){
+				var text = $('#text').text();
+				console.log( text );
+				$('#text').text( text.repeat(10000) );
+			});
+		});
+	</script>
+<html>
