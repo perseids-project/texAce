@@ -21,7 +21,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-;(function($) {
+;(function(jQuery) {
 	
 	/**
 	 * Holds default options, adds user defined options, and initializes the plugin
@@ -52,12 +52,12 @@
 		//------------------------------------------------------------
 		// Mark your territory
 		//------------------------------------------------------------
-		$( self.elem ).addClass('texAce')
+		jQuery( self.elem ).addClass('texAce')
 		
 		//------------------------------------------------------------
 		// User options 
 		//------------------------------------------------------------
-		self.options = $.extend({
+		self.options = jQuery.extend({
 			theme: 'tomorrow',
 			lang: 'javascript',
 			theme_selector: false
@@ -95,8 +95,8 @@
 		//------------------------------------------------------------
 		// Build the DOM
 		//------------------------------------------------------------
-		$( self.elem ).wrap( '<div class="texAce"></div>' );
-		self.elem = $( self.elem ).parent();
+		jQuery( self.elem ).wrap( '<div class="texAce"></div>' );
+		self.elem = jQuery( self.elem ).parent();
 		
 		//------------------------------------------------------------
 		// Mark your territory
@@ -106,11 +106,11 @@
 		//------------------------------------------------------------
 		// Get textarea XML
 		//------------------------------------------------------------
-		self.textarea = $( 'textarea', self.elem );
+		self.textarea = jQuery( 'textarea', self.elem );
 		var xml = self.textarea.val();
 		self.textarea.hide();
-		$( self.elem ).append( '<div id="aceMask"><div id="aceWrapper"><div id="aceEditor"></div></div></div>' );
-		$( '#aceEditor', self.elem ).text( xml );
+		jQuery( self.elem ).append( '<div id="aceMask"><div id="aceWrapper"><div id="aceEditor"></div></div></div>' );
+		jQuery( '#aceEditor', self.elem ).text( xml );
 	
 		//------------------------------------------------------------
 		// Startup and configure ace editor.
@@ -128,7 +128,7 @@
 		//------------------------------------------------------------
 		// Window resize listener.
 		//------------------------------------------------------------
-		$( window ).on( 'resize', function() { self.resize() } );
+		jQuery( window ).on( 'resize', function() { self.resize() } );
 		
 		//------------------------------------------------------------
 		// Ace editor events requiring an update.
@@ -177,14 +177,14 @@
 			}
 			selector += '</select><div style="clear:both"></div>';
 		}
-		$( self.elem ).prepend( selector );
+		jQuery( self.elem ).prepend( selector );
 		
 		//------------------------------------------------------------
 		// Theme selection event
 		//------------------------------------------------------------
-		$( "#themeSelector", self.elem ).change( function( _e ) {
-			$( 'option:selected', this ).each( function() {
-				var theme = $( this ).val();
+		jQuery( "#themeSelector", self.elem ).change( function( _e ) {
+			jQuery( 'option:selected', this ).each( function() {
+				var theme = jQuery( this ).val();
 				self.theme( theme );
 			});
 		});
@@ -196,10 +196,10 @@
 	 */
 	texAce.prototype.resize = function() {
 		var height = 0;
-		$( "#aceEditor .ace_gutter-cell" ).each( function(){
-			height += $(this).outerHeight();
+		jQuery( "#aceEditor .ace_gutter-cell" ).each( function(){
+			height += jQuery(this).outerHeight();
 		});
-		$( "#aceMask", this.elem ).height( height );
+		jQuery( "#aceMask", this.elem ).height( height );
 	}
 	
 	/**
@@ -221,7 +221,7 @@
 			check.push( opt );
 		}
 		for ( var i=0, ii=check.length; i<ii; i++ ) {
-			var cookieVal = $.cookie( 'texAce:'+check[i] );
+			var cookieVal = jQuery.cookie( 'texAce:'+check[i] );
 			if ( cookieVal != undefined ) {
 				self.options[ check ] = cookieVal;
 			}
@@ -232,7 +232,7 @@
 	 * Set a cookie for persistent texAce options
 	 */	
 	texAce.prototype.cookieSet = function( _key, _val ) {
-		$.cookie( _key, _val, { path: '/' } );
+		jQuery.cookie( _key, _val, { path: '/' } );
 	}
 	
 	/**
@@ -293,7 +293,7 @@
 	//----------------
 	// Extend JQuery 
 	//----------------
-	jQuery(document).ready( function($) {
+	jQuery(document).ready( function(jQuery) {
 		jQuery.fn.texAce = function( options ) {
 			var id = jQuery(this).selector;
 			return this.each( function() {
@@ -17628,7 +17628,7 @@ exports.LineWidgets = LineWidgets;
 		// Browser globals.
 		factory(jQuery);
 	}
-}(function ($) {
+}(function (jQuery) {
 
 	var pluses = /\+/g;
 
@@ -17661,15 +17661,15 @@ exports.LineWidgets = LineWidgets;
 
 	function read(s, converter) {
 		var value = config.raw ? s : parseCookieValue(s);
-		return $.isFunction(converter) ? converter(value) : value;
+		return jQuery.isFunction(converter) ? converter(value) : value;
 	}
 
-	var config = $.cookie = function (key, value, options) {
+	var config = jQuery.cookie = function (key, value, options) {
 
 		// Write
 
-		if (value !== undefined && !$.isFunction(value)) {
-			options = $.extend({}, config.defaults, options);
+		if (value !== undefined && !jQuery.isFunction(value)) {
+			options = jQuery.extend({}, config.defaults, options);
 
 			if (typeof options.expires === 'number') {
 				var days = options.expires, t = options.expires = new Date();
@@ -17691,7 +17691,7 @@ exports.LineWidgets = LineWidgets;
 
 		// To prevent the for loop in the first place assign an empty array
 		// in case there are no cookies at all. Also prevents odd result when
-		// calling $.cookie().
+		// calling jQuery.cookie().
 		var cookies = document.cookie ? document.cookie.split('; ') : [];
 
 		for (var i = 0, l = cookies.length; i < l; i++) {
@@ -17716,14 +17716,14 @@ exports.LineWidgets = LineWidgets;
 
 	config.defaults = {};
 
-	$.removeCookie = function (key, options) {
-		if ($.cookie(key) === undefined) {
+	jQuery.removeCookie = function (key, options) {
+		if (jQuery.cookie(key) === undefined) {
 			return false;
 		}
 
 		// Must not alter options, thus extending a fresh object...
-		$.cookie(key, '', $.extend({}, options, { expires: -1 }));
-		return !$.cookie(key);
+		jQuery.cookie(key, '', jQuery.extend({}, options, { expires: -1 }));
+		return !jQuery.cookie(key);
 	};
 
 }));
