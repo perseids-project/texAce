@@ -3,7 +3,7 @@
 }
 .texAce #aceWrapper {
   position: relative;
-  height: 9999999999px;
+  height: 9999px;
 }
 .texAce #aceEditor {
   position: absolute;
